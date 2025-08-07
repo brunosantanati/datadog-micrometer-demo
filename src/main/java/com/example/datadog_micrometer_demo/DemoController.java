@@ -13,9 +13,10 @@ public class DemoController {
     private final Timer myServiceLatency;
 
     public DemoController(MeterRegistry registry) {
-        this.myServiceLatency = Timer.builder("demo.service.latency2")
+        this.myServiceLatency = Timer.builder("demo.service.latency4")
                 .description("Measures the latency of the /hello endpoint")
                 .tag("endpoint", "hello")
+                .publishPercentiles(0.5, 0.95) // median and 95th percentile
                 .publishPercentileHistogram()
                 .register(registry);
     }
